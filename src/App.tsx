@@ -20,6 +20,7 @@ import { TemplatesPage } from './pages/messages/TemplatesPage'
 import { MorePage } from './pages/more/MorePage'
 import { OnboardingPage } from './pages/onboarding/OnboardingPage'
 import { ProfilePage } from './pages/profile/ProfilePage'
+import { PublicBookingPage } from './pages/public/PublicBookingPage'
 import { SettingsPage } from './pages/settings/SettingsPage'
 import { SubscriptionPage } from './pages/subscription/SubscriptionPage'
 
@@ -53,6 +54,9 @@ export default function App() {
         }
       />
       <Route path="/redefinir-senha" element={<ResetPasswordPage />} />
+
+      {/* rota pública — sem autenticação */}
+      <Route path="/agendar/:slug" element={<PublicBookingPage />} />
 
       <Route element={<ProtectedRoute />}>
         <Route path="/onboarding" element={<OnboardingPage />} />

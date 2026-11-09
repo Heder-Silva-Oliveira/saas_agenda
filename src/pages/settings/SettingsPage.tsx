@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 import { LogoUploader } from '../../components/LogoUploader'
+import { PublicBookingSettings } from './PublicBookingSettings'
 import { OpeningHoursEditor } from '../../components/OpeningHoursEditor'
 import {
   Badge,
@@ -431,6 +432,7 @@ export function SettingsPage() {
 
       {business && <BusinessSettings key={business.id} />}
       <ServicesSettings />
+      <PublicBookingSettings />
     </div>
   )
 }
