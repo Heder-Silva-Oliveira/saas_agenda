@@ -39,7 +39,7 @@ import {
   formatDateTimeBR,
   formatPhoneBR,
 } from '../../lib/format'
-import { openWhatsApp, renderTemplate } from '../../lib/whatsapp'
+import { SendMessageModal } from '../../components/SendMessageModal'
 import { queryKeys } from '../../lib/queryClient'
 import { api } from '../../services'
 
@@ -53,6 +53,7 @@ export function ClientDetailPage() {
   const { data: services = [] } = useServices()
   const { data: logs = [] } = useLogs()
   const [deleteOpen, setDeleteOpen] = useState(false)
+  const [messageOpen, setMessageOpen] = useState(false)
   const [deleting, setDeleting] = useState(false)
 
   const client = clients?.find((item) => item.id === id)
@@ -94,20 +95,7 @@ export function ClientDetailPage() {
     )
   }
 
-  const sendWhatsApp = () => {
-    const message = renderTemplate(
-      'Olá {{nome_cliente}}, tudo bem? Aqui é da {{nome_negocio}}.',
-      {
-        nome_cliente: client.name.split(' ')[0],
-        nome_negocio: business?.name,
-      },
-    )
-    openWhatsApp(client.phone, message)
-    void api.logs
-      .create({ clientId: client.id, messageContent: message })
-      .then(() => queryClient.invalidateQueries({ queryKey: queryKeys.logs }))
-      .catch(() => undefined)
-  }
+
 
   const handleDelete = async () => {
     setDeleting(true)
@@ -141,7 +129,7 @@ export function ClientDetailPage() {
             <Button
               variant="secondary"
               size="sm"
-              onClick={sendWhatsApp}
+              onClick={() => setMessageOpen(true)}
               leftIcon={<MessageCircle className="h-4 w-4" />}
             >
               Enviar WhatsApp
@@ -388,6 +376,14 @@ export function ClientDetailPage() {
           </Card>
         </div>
       </div>
+
+      <SendMessageModal
+        open={messageOpen}
+        onClose={() => setMessageOpen(false)}
+        client={client}
+        nextAppointment={nextAppointment}
+        service={nextAppointment ? services.find((s) => s.id === nextAppointment.serviceId) ?? null : null}
+      />
 
       <ConfirmDialog
         open={deleteOpen}
