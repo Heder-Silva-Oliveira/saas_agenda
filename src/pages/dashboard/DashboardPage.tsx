@@ -110,9 +110,19 @@ export function DashboardPage() {
             Olá, {firstName}
           </h1>
           <p className="mt-1 text-sm text-stone-500">
-            {data.todayAppointments.length > 0
-              ? `Você tem ${data.todayAppointments.length} atendimento(s) hoje.`
-              : 'Nenhum atendimento agendado para hoje.'}
+            {(() => {
+              const pending = data.todayAppointments.filter(
+                (a) => a.status === 'agendado' || a.status === 'confirmado',
+              )
+              const done = data.todayAppointments.filter(
+                (a) => a.status === 'concluido',
+              )
+              if (pending.length > 0)
+                return `${pending.length} atendimento(s) pendente(s) hoje.`
+              if (done.length > 0)
+                return 'Todos os atendimentos de hoje foram concluídos.'
+              return 'Nenhum atendimento agendado para hoje.'
+            })()}
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
