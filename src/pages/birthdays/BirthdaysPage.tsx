@@ -297,7 +297,7 @@ export function BirthdaysPage() {
       <div className="rounded-xl border border-stone-200 bg-white p-3 text-xs text-stone-500">
         <p className="font-medium text-stone-700">Sobre o envio</p>
         <p className="mt-0.5">
-          A mensagem é aberta no WhatsApp com o texto preenchido. O AgendaCliente não
+          A mensagem é aberta no WhatsApp com o texto preenchido. O Controlativa não
           envia mensagens automáticas em massa. Mensagens de aniversário são consideradas
           marketing e exigem consentimento registrado.
         </p>

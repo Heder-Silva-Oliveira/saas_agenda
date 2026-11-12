@@ -105,7 +105,7 @@ export function SubscriptionPage() {
           <div>
             <p className="font-semibold">Período de implantação encerrado</p>
             <p className="text-xs">
-              Para continuar usando o AgendaCliente, solicite a ativação do plano. Seus
+              Para continuar usando o Controlativa, solicite a ativação do plano. Seus
               dados continuam salvos.
             </p>
           </div>
@@ -167,7 +167,7 @@ export function SubscriptionPage() {
               )}
               <a
                 href={`https://wa.me/${SUPPORT_WHATSAPP}?text=${encodeURIComponent(
-                  'Olá! Quero saber mais sobre a assinatura do AgendaCliente.',
+                  'Olá! Quero saber mais sobre a assinatura do Controlativa.',
                 )}`}
                 target="_blank"
                 rel="noreferrer"
@@ -287,7 +287,7 @@ export function SubscriptionPage() {
           />
           <Textarea
             label="Observação (opcional)"
-            placeholder="Conte como pretende usar o AgendaCliente ou tire dúvidas."
+            placeholder="Conte como pretende usar o Controlativa ou tire dúvidas."
             {...register('note')}
           />
           {serverError && (

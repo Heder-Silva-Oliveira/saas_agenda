@@ -1,4 +1,4 @@
--- AgendaCliente — schema inicial, RLS e automações
+-- Controlativa — schema inicial, RLS e automações
 -- Execute este arquivo no SQL Editor do Supabase (ou via `supabase db push`).
 -- Requer os schemas `auth` e `storage` do Supabase.
 

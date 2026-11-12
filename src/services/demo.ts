@@ -45,8 +45,8 @@ import {
 } from '../domain/rules'
 import { combineDateTime, normalizePhoneBR, onlyDigits, toDateKey } from '../lib/format'
 
-const DB_KEY = 'agendacliente:db:v1'
-const SESSION_KEY = 'agendacliente:session:v1'
+const DB_KEY = 'controlativa:db:v1'
+const SESSION_KEY = 'controlativa:session:v1'
 
 interface DemoUser {
   id: string
@@ -323,7 +323,7 @@ function seedDb(): DemoDb {
     users: [
       {
         id: userId,
-        email: 'demo@agendacliente.com',
+        email: 'demo@controlativa.com',
         password: 'demo123',
         fullName: 'Rafael Almeida',
         businessId,

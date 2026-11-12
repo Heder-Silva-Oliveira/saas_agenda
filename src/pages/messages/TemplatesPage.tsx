@@ -128,7 +128,7 @@ export function TemplatesPage() {
         <p>
           Mensagens de marketing (aniversário e retorno) só são liberadas para clientes
           com consentimento registrado. Nenhum envio automático em massa é feito pelo
-          AgendaCliente.
+          Controlativa.
         </p>
       </div>
 

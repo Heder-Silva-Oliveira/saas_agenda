@@ -1,4 +1,4 @@
-# AgendaCliente
+# Controlativa
 
 SaaS mobile-first para pequenos negócios de serviços (barbearias, salões, estética,
 lash, personal, pet shop) organizarem clientes, agenda, aniversários e mensagens de
@@ -24,7 +24,7 @@ npm run dev
 
 Sem variáveis de ambiente o app inicia em **modo demonstração**, com dados de exemplo.
 
-- E-mail: `demo@agendacliente.com`
+- E-mail: `demo@controlativa.com`
 - Senha: `demo123`
 
 ## Modos de dados

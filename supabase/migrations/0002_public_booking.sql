@@ -1,4 +1,4 @@
--- AgendaCliente — agenda online pública
+-- Controlativa — agenda online pública
 -- Execute depois de 0001_init.sql.
 
 set search_path = public, extensions;

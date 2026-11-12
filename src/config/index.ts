@@ -1,6 +1,6 @@
 export type DataMode = 'demo' | 'supabase'
 
-export const APP_NAME = 'AgendaCliente'
+export const APP_NAME = 'Controlativa'
 
 export const TRIAL_DAYS = 7
 export const TRIAL_ENFORCEMENT = true
@@ -14,7 +14,7 @@ export const PLAN = {
   name: 'Plano Negócio',
   price: 50,
   interval: 'mês',
-  description: 'Acesso completo ao AgendaCliente para um negócio.',
+  description: 'Acesso completo ao Controlativa para um negócio.',
   features: [
     'Clientes e histórico ilimitados',
     'Agenda mensal, semanal e diária',
@@ -34,6 +34,6 @@ const hasSupabaseEnv = Boolean(
 export const DATA_MODE: DataMode = envMode ?? (hasSupabaseEnv ? 'supabase' : 'demo')
 
 export const DEMO_CREDENTIALS = {
-  email: 'demo@agendacliente.com',
+  email: 'demo@controlativa.com',
   password: 'demo123',
 }

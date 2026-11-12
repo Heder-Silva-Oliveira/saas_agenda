@@ -73,7 +73,7 @@ export function AppShell() {
           </span>
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-stone-900">
-              AgendaCliente
+              Controlativa
             </p>
             <p className="truncate text-xs text-stone-500">{business?.name}</p>
           </div>
@@ -148,7 +148,7 @@ export function AppShell() {
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-700 text-white">
               <CalendarCheck className="h-5 w-5" />
             </span>
-            <span className="text-sm font-semibold text-stone-900">AgendaCliente</span>
+            <span className="text-sm font-semibold text-stone-900">Controlativa</span>
           </Link>
           <button
             type="button"

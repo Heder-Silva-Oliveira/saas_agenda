@@ -221,7 +221,7 @@ function ClientForm({ client }: { client?: Client }) {
               <MessageCircle className="mt-0.5 h-4 w-4 shrink-0" />
               <p>
                 O envio é sempre manual: abrimos o WhatsApp com a mensagem preenchida.
-                Nenhuma mensagem automática em massa é enviada pelo AgendaCliente.
+                Nenhuma mensagem automática em massa é enviada pelo Controlativa.
               </p>
             </div>
 

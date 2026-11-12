@@ -1,4 +1,4 @@
--- AgendaCliente — dados de demonstração (opcional)
+-- Controlativa — dados de demonstração (opcional)
 -- Execute DEPOIS de criar a conta pelo app (o trigger cria negócio/perfil).
 -- Popula o primeiro negócio cadastrado com clientes, serviços e agenda.
 -- Não faz nada se o negócio já possuir clientes.

@@ -86,7 +86,7 @@ export function OnboardingPage() {
         onboardingCompleted: true,
       })
       applyBusiness(updated)
-      toast.success('Negócio configurado! Bem-vindo ao AgendaCliente.')
+      toast.success('Negócio configurado! Bem-vindo ao Controlativa.')
       navigate('/dashboard', { replace: true })
     } catch (error) {
       setServerError(
@@ -106,7 +106,7 @@ export function OnboardingPage() {
               <CalendarCheck className="h-5 w-5" />
             </span>
             <div>
-              <p className="text-sm font-semibold text-stone-900">AgendaCliente</p>
+              <p className="text-sm font-semibold text-stone-900">Controlativa</p>
               <p className="text-xs text-stone-500">{session?.fullName}</p>
             </div>
           </div>
