@@ -18,9 +18,7 @@ export function AuthLayout({
       <div className="relative hidden overflow-hidden bg-brand-900 lg:flex lg:flex-col lg:justify-between lg:p-10">
         <div className="relative z-10">
           <Link to="/" className="inline-flex items-center gap-2 text-white">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-white/15">
-              <CalendarCheck className="h-5 w-5" />
-            </span>
+            <img src="/logo-light.svg" alt="Controlativa" className="h-9 w-9" />
             <span className="text-lg font-semibold">{APP_NAME}</span>
           </Link>
 
@@ -65,9 +63,7 @@ export function AuthLayout({
             to="/"
             className="mb-8 inline-flex items-center gap-2 text-stone-900 lg:hidden"
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-700 text-white">
-              <CalendarCheck className="h-5 w-5" />
-            </span>
+            <img src="/logo-dark.svg" alt="Controlativa" className="h-9 w-9" />
             <span className="text-lg font-semibold">{APP_NAME}</span>
           </Link>
 

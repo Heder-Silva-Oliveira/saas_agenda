@@ -1,5 +1,4 @@
 import {
-  CalendarCheck,
   CalendarDays,
   Cake,
   ChevronRight,
@@ -68,9 +67,7 @@ export function AppShell() {
     <div className="min-h-screen bg-stone-100">
       <aside className="fixed inset-y-0 left-0 z-30 hidden w-64 flex-col border-r border-stone-200 bg-white lg:flex">
         <div className="flex h-16 items-center gap-2 border-b border-stone-100 px-5">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-700 text-white">
-            <CalendarCheck className="h-5 w-5" />
-          </span>
+          <img src="/logo-dark.svg" alt="Controlativa" className="h-9 w-9" />
           <div className="min-w-0">
             <p className="truncate text-sm font-semibold text-stone-900">
               Controlativa
@@ -145,9 +142,7 @@ export function AppShell() {
       <div className="lg:pl-64">
         <header className="sticky top-0 z-20 flex h-14 items-center justify-between border-b border-stone-200 bg-white/90 px-4 backdrop-blur lg:hidden">
           <Link to="/dashboard" className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-700 text-white">
-              <CalendarCheck className="h-5 w-5" />
-            </span>
+            <img src="/logo-dark.svg" alt="Controlativa" className="h-8 w-8" />
             <span className="text-sm font-semibold text-stone-900">Controlativa</span>
           </Link>
           <button
