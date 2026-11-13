@@ -501,6 +501,7 @@ export const demoApi: Api = {
         name: input.businessName.trim(),
         slug: uniqueSlug(db, input.businessName),
         segment: 'outro',
+        segmentCustom: null,
         whatsappNumber: '',
         openingHours: DEFAULT_OPENING_HOURS,
         logoUrl: null,

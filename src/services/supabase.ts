@@ -1,4 +1,4 @@
-﻿import type {
+import type {
   Appointment,
   AppointmentStatus,
   Business,
@@ -31,7 +31,7 @@ function translateError(message: string): string {
     return 'E-mail ou senha incorretos.'
   }
   if (normalized.includes('user already registered')) {
-    return 'JÃ¡ existe uma conta com este e-mail.'
+    return 'Já existe uma conta com este e-mail.'
   }
   if (normalized.includes('email not confirmed')) {
     return 'Confirme seu e-mail antes de entrar.'
@@ -40,7 +40,7 @@ function translateError(message: string): string {
     return 'A senha deve ter pelo menos 6 caracteres.'
   }
   if (normalized.includes('duplicate key')) {
-    return 'JÃ¡ existe um registro com estes dados.'
+    return 'Já existe um registro com estes dados.'
   }
   return message
 }
@@ -52,12 +52,13 @@ function rowToBusiness(row: Record<string, any>): Business {
     name: row.name,
     slug: row.slug ?? '',
     segment: row.segment,
+    segmentCustom: row.segment_custom ?? null,
     whatsappNumber: row.whatsapp_number ?? '',
     openingHours: row.opening_hours ?? {},
     logoUrl: row.logo_url ?? null,
     timezone: row.timezone ?? 'America/Sao_Paulo',
     publicBookingEnabled: Boolean(row.public_booking_enabled ?? true),
-    plan: row.plan ?? 'Plano NegÃ³cio',
+    plan: row.plan ?? 'Plano Negócio',
     subscriptionStatus: row.subscription_status ?? 'trial',
     trialEndsAt: row.trial_ends_at,
     onboardingCompleted: Boolean(row.onboarding_completed),
@@ -154,14 +155,14 @@ function rowToLog(row: Record<string, any>): MessageLog {
 async function getProfile(): Promise<{ userId: string; businessId: string; fullName: string }> {
   const client = requireSupabase()
   const { data: auth } = await client.auth.getUser()
-  if (!auth.user) throw new Error('SessÃ£o expirada. FaÃ§a login novamente.')
+  if (!auth.user) throw new Error('Sessão expirada. Faça login novamente.')
   const { data, error } = await client
     .from('profiles')
     .select('business_id, full_name')
     .eq('user_id', auth.user.id)
     .maybeSingle()
   if (error) throw new Error(translateError(error.message))
-  if (!data) throw new Error('Perfil nÃ£o encontrado. Conclua o cadastro do negÃ³cio.')
+  if (!data) throw new Error('Perfil não encontrado. Conclua o cadastro do negócio.')
   return {
     userId: auth.user.id,
     businessId: data.business_id,
@@ -200,7 +201,7 @@ export const supabaseApi: Api = {
         password,
       })
       if (error) throw new Error(translateError(error.message))
-      if (!data.user) throw new Error('NÃ£o foi possÃ­vel entrar. Tente novamente.')
+      if (!data.user) throw new Error('Não foi possível entrar. Tente novamente.')
       return {
         id: data.user.id,
         email: data.user.email ?? email,
@@ -298,7 +299,7 @@ export const supabaseApi: Api = {
         `Contato: ${input.name} | ${input.email} | ${input.phone}`,
       ]
         .filter(Boolean)
-        .join(' â€” ')
+        .join(' — ')
       const { error } = await client
         .from('businesses')
         .update({
@@ -352,7 +353,7 @@ export const supabaseApi: Api = {
       const client = requireSupabase()
       const businessId = await currentBusinessId()
       const duplicate = await supabaseApi.clients.checkDuplicatePhone(input.phone)
-      if (duplicate) throw new Error('JÃ¡ existe um cliente com este telefone.')
+      if (duplicate) throw new Error('Já existe um cliente com este telefone.')
       const { data, error } = await client
         .from('clients')
         .insert({
@@ -373,7 +374,7 @@ export const supabaseApi: Api = {
         .single()
       if (error) {
         if (error.code === '23505') {
-          throw new Error('JÃ¡ existe um cliente com este telefone.')
+          throw new Error('Já existe um cliente com este telefone.')
         }
         throw new Error(translateError(error.message))
       }
@@ -383,7 +384,7 @@ export const supabaseApi: Api = {
     async update(id, input): Promise<Client> {
       const client = requireSupabase()
       const duplicate = await supabaseApi.clients.checkDuplicatePhone(input.phone, id)
-      if (duplicate) throw new Error('JÃ¡ existe um cliente com este telefone.')
+      if (duplicate) throw new Error('Já existe um cliente com este telefone.')
       const { data, error } = await client
         .from('clients')
         .update({
@@ -404,7 +405,7 @@ export const supabaseApi: Api = {
         .single()
       if (error) {
         if (error.code === '23505') {
-          throw new Error('JÃ¡ existe um cliente com este telefone.')
+          throw new Error('Já existe um cliente com este telefone.')
         }
         throw new Error(translateError(error.message))
       }
@@ -432,7 +433,7 @@ export const supabaseApi: Api = {
         const duplicate = await supabaseApi.clients.checkDuplicatePhone(row.phone)
         if (duplicate) {
           skipped += 1
-          errors.push({ line, message: 'Telefone jÃ¡ cadastrado.' })
+          errors.push({ line, message: 'Telefone já cadastrado.' })
           continue
         }
         const { error } = await client.from('clients').insert({
@@ -552,7 +553,7 @@ export const supabaseApi: Api = {
         .single()
       if (error) {
         if (error.code === '23505') {
-          throw new Error('Já existe um profissional com este nome.')
+          throw new Error('J� existe um profissional com este nome.')
         }
         throw new Error(translateError(error.message))
       }
@@ -569,7 +570,7 @@ export const supabaseApi: Api = {
         .single()
       if (error) {
         if (error.code === '23505') {
-          throw new Error('Já existe um profissional com este nome.')
+          throw new Error('J� existe um profissional com este nome.')
         }
         throw new Error(translateError(error.message))
       }
@@ -612,7 +613,7 @@ export const supabaseApi: Api = {
       const client = requireSupabase()
       const businessId = await currentBusinessId()
       const start = combineDateTime(input.date, input.startTime)
-      if (Number.isNaN(start.getTime())) throw new Error('Data ou horÃ¡rio invÃ¡lido.')
+      if (Number.isNaN(start.getTime())) throw new Error('Data ou horário inválido.')
       const end = new Date(start.getTime() + input.durationMinutes * 60_000)
 
       const { data: overlapping, error: conflictError } = await client
@@ -624,7 +625,7 @@ export const supabaseApi: Api = {
         .eq('professional_name', input.professionalName?.trim() || '')
       if (conflictError) throw new Error(translateError(conflictError.message))
       if (overlapping && overlapping.length > 0) {
-        throw new Error('Este horÃ¡rio jÃ¡ estÃ¡ ocupado para este profissional.')
+        throw new Error('Este horário já está ocupado para este profissional.')
       }
 
       const { data, error } = await client
@@ -644,7 +645,7 @@ export const supabaseApi: Api = {
         .single()
       if (error) {
         if (error.code === '23P01' || error.message.includes('exclusion')) {
-          throw new Error('Este horÃ¡rio jÃ¡ estÃ¡ ocupado para este profissional.')
+          throw new Error('Este horário já está ocupado para este profissional.')
         }
         throw new Error(translateError(error.message))
       }
@@ -654,7 +655,7 @@ export const supabaseApi: Api = {
     async update(id, input) {
       const client = requireSupabase()
       const start = combineDateTime(input.date, input.startTime)
-      if (Number.isNaN(start.getTime())) throw new Error('Data ou horÃ¡rio invÃ¡lido.')
+      if (Number.isNaN(start.getTime())) throw new Error('Data ou horário inválido.')
       const end = new Date(start.getTime() + input.durationMinutes * 60_000)
 
       const { data: overlapping, error: conflictError } = await client
@@ -667,7 +668,7 @@ export const supabaseApi: Api = {
         .neq('id', id)
       if (conflictError) throw new Error(translateError(conflictError.message))
       if (overlapping && overlapping.length > 0) {
-        throw new Error('Este horÃ¡rio jÃ¡ estÃ¡ ocupado para este profissional.')
+        throw new Error('Este horário já está ocupado para este profissional.')
       }
 
       const { data, error } = await client
@@ -687,7 +688,7 @@ export const supabaseApi: Api = {
         .single()
       if (error) {
         if (error.code === '23P01' || error.message.includes('exclusion')) {
-          throw new Error('Este horÃ¡rio jÃ¡ estÃ¡ ocupado para este profissional.')
+          throw new Error('Este horário já está ocupado para este profissional.')
         }
         throw new Error(translateError(error.message))
       }
@@ -816,7 +817,7 @@ export const supabaseApi: Api = {
 
     async create(input: PublicBookingInput): Promise<PublicBookingResult> {
       if (input.honeypot?.trim()) {
-        throw new Error('Não foi possível concluir o agendamento.')
+        throw new Error('N�o foi poss�vel concluir o agendamento.')
       }
       const client = requireSupabase()
       const { data, error } = await client.rpc('public_book', {

@@ -102,8 +102,6 @@ function ServiceModal({
     },
   })
 
-  const watchedSegment = watch('segment')
-
   const onSubmit = handleSubmit(async (values) => {
     setServerError(null)
     try {
@@ -215,6 +213,8 @@ function BusinessSettings() {
       whatsappNumber: business?.whatsappNumber ?? '',
     },
   })
+
+  const watchedSegment = watch('segment')
 
   const onSubmit = handleSubmit(async (values) => {
     setServerError(null)
