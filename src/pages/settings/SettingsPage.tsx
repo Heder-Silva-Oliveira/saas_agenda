@@ -46,6 +46,7 @@ const businessSchema = z.object({
     'petshop',
     'outro',
   ]),
+  segmentCustom: z.string().max(60, 'Máximo 60 caracteres.').optional(),
   whatsappNumber: z
     .string()
     .min(1, 'Informe o WhatsApp do negócio.')
@@ -100,6 +101,8 @@ function ServiceModal({
       active: service?.active ?? true,
     },
   })
+
+  const watchedSegment = watch('segment')
 
   const onSubmit = handleSubmit(async (values) => {
     setServerError(null)
@@ -201,12 +204,14 @@ function BusinessSettings() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<BusinessValues>({
     resolver: zodResolver(businessSchema),
     defaultValues: {
       name: business?.name ?? '',
       segment: business?.segment ?? 'outro',
+      segmentCustom: business?.segmentCustom ?? '',
       whatsappNumber: business?.whatsappNumber ?? '',
     },
   })
@@ -218,6 +223,7 @@ function BusinessSettings() {
       const updated = await api.business.update({
         name: values.name,
         segment: values.segment,
+        segmentCustom: values.segment === 'outro' ? values.segmentCustom ?? null : null,
         whatsappNumber: normalizePhoneBR(values.whatsappNumber),
         openingHours,
         logoUrl,
@@ -249,13 +255,23 @@ function BusinessSettings() {
             error={errors.name?.message}
             {...register('name')}
           />
-          <Select label="Segmento" {...register('segment')}>
-            {SEGMENTS.map((segment) => (
-              <option key={segment.value} value={segment.value}>
-                {segment.label}
-              </option>
-            ))}
-          </Select>
+          <div className="space-y-2">
+            <Select label="Segmento" {...register('segment')}>
+              {SEGMENTS.map((segment) => (
+                <option key={segment.value} value={segment.value}>
+                  {segment.label}
+                </option>
+              ))}
+            </Select>
+            {watchedSegment === 'outro' && (
+              <Input
+                placeholder="Descreva seu segmento"
+                hint="Ex: Clínica veterinária, Estúdio de tatuagem…"
+                error={errors.segmentCustom?.message}
+                {...register('segmentCustom')}
+              />
+            )}
+          </div>
           <Input
             label="WhatsApp do negócio"
             placeholder="(11) 98765-4321"
@@ -425,7 +441,7 @@ export function SettingsPage() {
         </h1>
         <p className="mt-1 text-sm text-stone-500">
           {business
-            ? `${business.name} · ${SEGMENT_LABELS[business.segment]}`
+            ? `${business.name} · ${business.segment === 'outro' && business.segmentCustom ? business.segmentCustom : SEGMENT_LABELS[business.segment]}`
             : 'Dados do negócio, horários e serviços.'}
         </p>
       </div>

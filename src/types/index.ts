@@ -49,6 +49,7 @@ export interface Business {
   name: string
   slug: string
   segment: BusinessSegment
+  segmentCustom: string | null
   whatsappNumber: string
   openingHours: OpeningHours
   logoUrl: string | null
@@ -218,6 +219,7 @@ export interface BusinessInput {
   name: string
   slug?: string
   segment: BusinessSegment
+  segmentCustom?: string | null
   whatsappNumber: string
   openingHours: OpeningHours
   logoUrl: string | null

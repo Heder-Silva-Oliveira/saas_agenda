@@ -276,6 +276,7 @@ export const supabaseApi: Api = {
           name: input.name.trim(),
           slug: input.slug,
           segment: input.segment,
+        segment_custom: input.segment === 'outro' ? (input.segmentCustom ?? null) : null,
           whatsapp_number: input.whatsappNumber,
           opening_hours: input.openingHours,
           logo_url: input.logoUrl,
